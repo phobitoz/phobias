@@ -1,12 +1,19 @@
 
+
 from http.server import BaseHTTPRequestHandler
 
-class CustomHandler(BaseHTTPRequestHandler):
+class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type','text/plain')
         self.end_headers()
+        self.wfile.write('404'.encode('utf-8'))
+        
+
+
+
+
 
         # HTML que muestra una imagen centrada y un encabezado h1
         response_content = """
@@ -23,9 +30,3 @@ class CustomHandler(BaseHTTPRequestHandler):
 
         self.wfile.write(response_content.encode('utf-8'))
         return
-
-if __name__ == '__main__':
-    from http.server import HTTPServer
-    server = HTTPServer(('localhost', 8080), CustomHandler)
-    print('Servidor web en ejecución...')
-    server.serve_forever()
